@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Crosshair, Plane, ScanLine, MapPin, FileCheck, Layers, ArrowRight, ChevronRight } from "lucide-react";
 import heroImage from "@/assets/hero-drone.jpg";
 
-const WHATSAPP_URL = "https://wa.me/553133820978?text=Olá! Gostaria de solicitar um orçamento.";
+const WHATSAPP_URL = "https://wa.me/5531984714692?text=Olá! Gostaria de solicitar um orçamento.";
 
 const serviceDetails = [
   {
@@ -103,7 +102,7 @@ const Services = () => {
           <h2 className="text-2xl lg:text-3xl font-heading font-bold text-primary-foreground mb-4">Precisa de um serviço especializado?</h2>
           <p className="text-primary-foreground/80 mb-8 max-w-lg mx-auto">Entre em contato para um orçamento personalizado.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contato"><Button variant="hero" size="xl">Solicitar Orçamento</Button></Link>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"><Button variant="hero" size="xl">Solicitar Orçamento</Button></a>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"><Button variant="heroOutline" size="xl">Falar no WhatsApp</Button></a>
           </div>
         </div>
