@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,8 +12,14 @@ import surveyorImage from "@/assets/surveyor-field.jpg";
 import terrainImage from "@/assets/terrain-model.jpg";
 import droneImage from "@/assets/drone-field.jpg";
 import lidarImage from "@/assets/lidar-scan.jpg";
+import heroSlide2 from "@/assets/hero-slide-2.jpg";
+import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import heroSlide4 from "@/assets/hero-slide-4.jpg";
 
-const WHATSAPP_URL = "https://wa.me/553133820978?text=Olá! Gostaria de solicitar um orçamento.";
+const WHATSAPP_URL = "https://wa.me/5531984714692?text=Olá! Gostaria de solicitar um orçamento.";
+const WHATSAPP_PORTFOLIO = "https://wa.me/5531984714692?text=Olá, vim do site e gostaria de ver o portfólio completo de serviços da Adag";
+
+const heroSlides = [heroImage, heroSlide2, heroSlide3, heroSlide4];
 
 const services = [
   { icon: Crosshair, title: "Topografia", desc: "Levantamentos planialtimétricos, altimétricos e cadastrais com alta precisão para obras e projetos de engenharia." },
@@ -56,12 +63,44 @@ const portfolioPreview = [
 ];
 
 const Index = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <>
-      {/* Hero */}
+      {/* Hero with Slideshow */}
       <section className="relative min-h-[90vh] flex items-center bg-hero overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Aerolevantamento com drone e equipamentos topográficos" className="w-full h-full object-cover opacity-20" loading="eager" />
+          {heroSlides.map((slide, i) => (
+            <img
+              key={i}
+              src={slide}
+              alt={`Serviços de topografia e aerolevantamento ${i + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                i === currentSlide ? "opacity-20" : "opacity-0"
+              }`}
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          ))}
+        </div>
+        {/* Slide indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                i === currentSlide ? "bg-accent w-8" : "bg-primary-foreground/40 hover:bg-primary-foreground/60"
+              }`}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
         </div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10 py-20">
           <div className="max-w-3xl">
@@ -75,11 +114,11 @@ const Index = () => {
               Tecnologia avançada em aerolevantamento, LiDAR, drones e topografia para projetos de engenharia em todo o Brasil.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-              <Link to="/contato">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <Button variant="hero" size="xl">
                   Solicitar Orçamento <ArrowRight className="w-5 h-5" />
                 </Button>
-              </Link>
+              </a>
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <Button variant="heroOutline" size="xl">
                   Falar no WhatsApp
@@ -218,9 +257,9 @@ const Index = () => {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Link to="/portfolio">
+            <a href={WHATSAPP_PORTFOLIO} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg">Ver portfólio completo <ArrowRight className="w-4 h-4" /></Button>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -264,11 +303,11 @@ const Index = () => {
             Solicite agora um orçamento com nossa equipe técnica. Atendemos em todo o Brasil.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contato">
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <Button variant="hero" size="xl">
                 Solicitar Orçamento <ArrowRight className="w-5 h-5" />
               </Button>
-            </Link>
+            </a>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <Button variant="heroOutline" size="xl">
                 Falar no WhatsApp

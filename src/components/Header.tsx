@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoImg from "@/assets/logo.png";
+
+const WHATSAPP_URL = "https://wa.me/5531984714692?text=Olá! Gostaria de solicitar um orçamento.";
 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Serviços", path: "/servicos" },
   { label: "Sobre", path: "/sobre" },
   { label: "Portfólio", path: "/portfolio" },
-  { label: "Blog", path: "/blog" },
   { label: "Contato", path: "/contato" },
 ];
 
@@ -22,10 +24,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-primary tracking-tight">ADAG</span>
-              <span className="text-[10px] font-body text-muted-foreground tracking-widest uppercase -mt-1">Topografia & Engenharia</span>
-            </div>
+            <img src={logoImg} alt="ADAG Topografia e Engenharia" className="h-14 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
@@ -47,12 +46,12 @@ const Header = () => {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href="tel:3133820978" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="tel:+553184714692" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-4 h-4" />
-              (31) 3382-0978
+              +55 31 8471-4692
             </a>
             <a
-              href="https://wa.me/553133820978?text=Olá! Gostaria de solicitar um orçamento."
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -92,7 +91,7 @@ const Header = () => {
               </Link>
             ))}
             <a
-              href="https://wa.me/553133820978?text=Olá! Gostaria de solicitar um orçamento."
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2"
